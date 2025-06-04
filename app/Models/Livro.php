@@ -25,4 +25,12 @@ class Livro extends Model
             'id'
         );
     }
+
+    public function review() {
+        return $this->hasMany(
+            Review::class,
+            'livro_id',
+            'id'
+        );
+    }
 }

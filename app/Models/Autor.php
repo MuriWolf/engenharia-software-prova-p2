@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Livro;
+use App\Models\Livro;
 use Illuminate\Database\Eloquent\Model;
 
 class Autor extends Model

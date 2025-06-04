@@ -23,6 +23,11 @@ class LivroService {
         return $this->livroRepository->find($id);
     }
 
+    public function findBookReviews(int $bookId): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->livroRepository->findBookReviews($bookId);
+    }
+
     public function update(array $data, $id): int {
         return $this->livroRepository->update($data, $id);
     }

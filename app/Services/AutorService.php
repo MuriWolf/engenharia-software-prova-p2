@@ -23,6 +23,11 @@ class AutorService {
         return $this->autorRepository->find($id);
     }
 
+    // public function findBooksByAuthor(int $autorId): \Illuminate\Database\Eloquent\Collection
+    // {
+    //     return $this->autorRepository->findBooksByAuthor($autorId);
+    // }
+
     public function update(array $data, $id): int {
         return $this->autorRepository->update($data, $id);
     }

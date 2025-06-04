@@ -20,6 +20,11 @@ class AutorRepository {
         return Autor::find($id);
     }
 
+    // public function findBooksByAuthor(int $autorId): \Illuminate\Database\Eloquent\Collection
+    // {
+    //     // return Autor::find($id);
+    // }
+
     public function update(array $data, $id): int
     {
         $autor = Autor::findOrFail($id);

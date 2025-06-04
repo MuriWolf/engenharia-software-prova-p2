@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\LivroResource;
+use App\Http\Resources\ReviewResource;
 use App\Models\Livro;
 use App\Services\LivroService;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,14 @@ class LivroController extends Controller
         $livro = $this->livroService->find($id);
 
         return new LivroResource($livro)->response()->setStatusCode(200);
+    }
+
+    public function findBookReviews(int $bookId): JsonResponse
+    {
+        $reviews =  $this->livroService->findBookReviews($bookId);
+
+        // return ReviewResource::collection($reviews)->response()->setStatusCode(200);
+        return response()->json($reviews);
     }
 
     public function store(Request $request): JsonResponse

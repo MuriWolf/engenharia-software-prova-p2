@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Livro;
+use App\Models\Review;
 
 class LivroRepository
 {
@@ -12,13 +13,18 @@ class LivroRepository
     }
 
     public function create(array $data): ?Livro
-    {
+   {
         return Livro::create($data);
     }
 
     public function find(int $id): ?Livro
     {
         return Livro::find($id);
+    }
+
+    public function findBookReviews(int $bookId): \Illuminate\Database\Eloquent\Collection
+    {
+        return Livro::find($bookId)->review;
     }
 
     public function update(array $data, $id): int

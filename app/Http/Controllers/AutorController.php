@@ -29,6 +29,11 @@ class AutorController extends Controller
 
     }
 
+    // public function findBooksByAuthor(int $autorId): JsonResponse
+    // {
+    //     // return $this->autorService->findBooksByAuthor($autorId);
+    // }
+
     public function store(Request $request): JsonResponse
     {
         $autor = $this->autorService->create($request->all());
