@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GeneroResource;
 use App\Models\Genero;
 use App\Services\GeneroService;
 use Illuminate\Http\JsonResponse;
@@ -18,26 +19,25 @@ class GeneroController extends Controller
     {
         $generos = $this->GeneroService->all();
 
-        return response()->json($generos, 200);
+        return GeneroResource::collection($generos)->response()->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
     {
-        $generos = $this->GeneroService->find($id);
+        $genero = $this->GeneroService->find($id);
 
-        return response()->json($generos, 200);
-
+        return new GeneroResource($genero)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse
     {
-        $Genero = $this->GeneroService->create($request->all());
+        $genero = $this->GeneroService->create($request->all());
 
-        if (!$Genero instanceof Genero) {
+        if (!$genero instanceof Genero) {
             throw new \UnexpectedValueException('Falha ao criar gênero');
         }
 
-        return response()->json($Genero, 201);
+        return new GeneroResource($genero)->response()->setStatusCode(201);
     }
 
     public function update(Request $request, int $id): JsonResponse

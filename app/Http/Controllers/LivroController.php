@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LivroResource;
 use App\Models\Livro;
 use App\Services\LivroService;
 use Illuminate\Http\JsonResponse;
@@ -17,15 +18,14 @@ class LivroController extends Controller
     {
         $livros = $this->livroService->all();
 
-        return response()->json($livros, 200);
+        return LivroResource::collection($livros)->response()->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
     {
         $livro = $this->livroService->find($id);
 
-        return response()->json($livro, 200);
-
+        return new LivroResource($livro)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse
@@ -36,7 +36,7 @@ class LivroController extends Controller
             throw new \UnexpectedValueException('Falha ao criar livro');
         }
 
-        return response()->json($livro, 201);
+        return new LivroResource($livro)->response()->setStatusCode(201);
     }
 
     public function update(Request $request, int $id): JsonResponse

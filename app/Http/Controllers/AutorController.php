@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AutorResource;
 use App\Models\Autor;
 use App\Services\AutorService;
 use Illuminate\Http\JsonResponse;
@@ -17,14 +18,14 @@ class AutorController extends Controller
     {
         $autores = $this->autorService->all();
 
-        return response()->json($autores, 200);
+        return AutorResource::collection($autores)->response()->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
     {
         $autor = $this->autorService->find($id);
 
-        return response()->json($autor, 200);
+        return new AutorResource($autor)->response()->setStatusCode(200);
 
     }
 
@@ -36,7 +37,7 @@ class AutorController extends Controller
             throw new \UnexpectedValueException('Falha ao criar autor');
         }
 
-        return response()->json($autor, 201);
+        return new AutorResource($autor)->response()->setStatusCode(201);
     }
 
     public function update(Request $request, int $id): JsonResponse

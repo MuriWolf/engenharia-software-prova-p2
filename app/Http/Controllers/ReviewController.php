@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
 use App\Models\Review;
 use App\Services\ReviewService;
 use Illuminate\Http\JsonResponse;
@@ -18,15 +19,14 @@ class ReviewController extends Controller
     {
         $reviews = $this->reviewService->all();
 
-        return response()->json($reviews, 200);
+        return ReviewResource::collection($reviews)->response()->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
     {
         $review = $this->reviewService->find($id);
 
-        return response()->json($review, 200);
-
+        return new ReviewResource($review)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse
@@ -37,7 +37,7 @@ class ReviewController extends Controller
             throw new \UnexpectedValueException('Falha ao criar a review');
         }
 
-        return response()->json($review, 201);
+        return new ReviewResource($review)->response()->setStatusCode(201);
     }
 
     public function update(Request $request, int $id): JsonResponse

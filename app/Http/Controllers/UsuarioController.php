@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UsuarioResource;
 use App\Models\Usuario;
 use App\Services\UsuarioService;
 use Illuminate\Http\JsonResponse;
@@ -15,17 +16,16 @@ class UsuarioController extends Controller
 
     public function index(): JsonResponse
     {
-        $users = $this->usuarioService->all();
+        $usuarios = $this->usuarioService->all();
 
-        return response()->json($users, 200);
+        return UsuarioResource::collection($usuarios)->response()->setStatusCode(200);
     }
 
     public function show($id): JsonResponse
     {
-        $user = $this->usuarioService->find($id);
+        $usuario = $this->usuarioService->find($id);
 
-        return response()->json($user, 200);
-
+        return new UsuarioResource($usuario)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse
@@ -36,7 +36,7 @@ class UsuarioController extends Controller
             throw new \UnexpectedValueException('Falha ao criar usuario');
         }
 
-        return response()->json($usuario, 201);
+        return new UsuarioResource($usuario)->response()->setStatusCode(200);
     }
 
     public function update(Request $request, int $id): JsonResponse
