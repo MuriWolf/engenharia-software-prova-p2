@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Models\Review;
 use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
@@ -16,5 +17,4 @@ class Usuario extends Model
             'id'
         );
     }
-    //
 }

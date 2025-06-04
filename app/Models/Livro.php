@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\Models\Autor;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Livro extends Model
 {
     protected $table = 'livro';
-    protected $fillable = ['titulo', 'sinopse'];
+    protected $fillable = ['titulo', 'sinopse', 'genero_id', 'autor_id'];
 
     public function genero() {
         return $this->belongsTo(
