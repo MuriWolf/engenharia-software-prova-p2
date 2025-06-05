@@ -27,6 +27,11 @@ class LivroRepository
         return Livro::find($bookId)->review;
     }
 
+    public function getBookDetails(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Livro::with('review', 'autor', 'genero')->get();
+    }
+
     public function update(array $data, $id): int
     {
         $livro = Livro::findOrFail($id);

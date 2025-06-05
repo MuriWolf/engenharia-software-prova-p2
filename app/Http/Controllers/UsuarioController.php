@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReviewResource;
 use App\Http\Resources\UsuarioResource;
 use App\Models\Usuario;
 use App\Services\UsuarioService;
@@ -26,6 +27,13 @@ class UsuarioController extends Controller
         $usuario = $this->usuarioService->find($id);
 
         return new UsuarioResource($usuario)->response()->setStatusCode(200);
+    }
+
+    public function showReviewsByUser(int $userId): JsonResponse 
+    {
+        $reviews = $this->usuarioService->findReviewsByUser($userId);
+
+        return ReviewResource::collection($reviews)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('livro', function (Blueprint $table) {
             $table->unsignedBigInteger('autor_id')->nullable();
-            $table->foreign('autor_id')->references('id')->on('autor');
+            $table->foreign('autor_id')->references('id')->on('autor')->cascadeOnDelete();
 
             $table->unsignedBigInteger('genero_id')->nullable();
-            $table->foreign('genero_id')->references('id')->on('genero');
+            $table->foreign('genero_id')->references('id')->on('genero')->onDelete('set null');
         });
     }
 

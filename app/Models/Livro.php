@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\Autor;
+use App\Models\Review;
+use App\Models\Genero;
 use Illuminate\Database\Eloquent\Model;
 
 class Livro extends Model

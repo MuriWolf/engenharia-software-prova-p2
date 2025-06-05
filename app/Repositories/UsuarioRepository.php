@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Review;
 use App\Models\Usuario;
 
 class UsuarioRepository
@@ -19,6 +20,11 @@ class UsuarioRepository
     public function find(int $id): ?Usuario
     {
         return Usuario::find($id);
+    }
+
+    public function findReviewsByUser(int $userId): \Illuminate\Database\Eloquent\Collection
+    {
+        return Usuario::find($userId)->reviews;
     }
 
     public function update(array $data, $id): int

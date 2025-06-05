@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AutorComLivroResource;
 use App\Http\Resources\AutorResource;
+use App\Http\Resources\LivroResource;
 use App\Models\Autor;
 use App\Services\AutorService;
 use Illuminate\Http\JsonResponse;
@@ -26,13 +28,24 @@ class AutorController extends Controller
         $autor = $this->autorService->find($id);
 
         return new AutorResource($autor)->response()->setStatusCode(200);
-
     }
 
-    // public function findBooksByAuthor(int $autorId): JsonResponse
-    // {
-    //     // return $this->autorService->findBooksByAuthor($autorId);
-    // }
+    public function showBooksByAuthor(int $autorId): JsonResponse
+    {
+        $livros = $this->autorService->findBooksByAuthor($autorId);
+
+        return LivroResource::collection($livros)->response()->setStatusCode(200);
+    }
+
+    public function showAuthorsAndTheirBooks(): JsonResponse
+    {
+        $autoresELivros = $this->autorService->findAuthorsAndTheirBooks();
+
+        return AutorComLivroResource::collection($autoresELivros)->response()->setStatusCode(200);
+
+       // turn response()->json($autoresELivros);
+
+    }
 
     public function store(Request $request): JsonResponse
     {

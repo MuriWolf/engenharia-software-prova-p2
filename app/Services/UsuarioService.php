@@ -23,6 +23,11 @@ class UsuarioService {
         return $this->usuarioRepository->find($id);
     }
 
+    public function findReviewsByUser(int $userId): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->usuarioRepository->findReviewsByUser($userId);
+    }
+
     public function update(array $data, $id): int {
         return $this->usuarioRepository->update($data, $id);
     }

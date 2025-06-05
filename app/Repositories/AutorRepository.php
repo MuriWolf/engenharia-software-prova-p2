@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Autor;
+use App\Models\Livro;
 
 class AutorRepository {
     public function all(): \Illuminate\Database\Eloquent\Collection
@@ -20,10 +21,15 @@ class AutorRepository {
         return Autor::find($id);
     }
 
-    // public function findBooksByAuthor(int $autorId): \Illuminate\Database\Eloquent\Collection
-    // {
-    //     // return Autor::find($id);
-    // }
+    public function findBooksByAuthor(int $autorId): \Illuminate\Database\Eloquent\Collection
+    {
+        return Autor::find($autorId)->livros;
+    }
+
+    public function findAuthorsAndTheirBooks(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Autor::with('livros')->get();
+    }
 
     public function update(array $data, $id): int
     {

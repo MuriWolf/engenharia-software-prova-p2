@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\LivroDetalhesResource;
 use App\Http\Resources\LivroResource;
 use App\Http\Resources\ReviewResource;
 use App\Models\Livro;
@@ -29,12 +30,18 @@ class LivroController extends Controller
         return new LivroResource($livro)->response()->setStatusCode(200);
     }
 
-    public function findBookReviews(int $bookId): JsonResponse
+    public function showReviewsByBook(int $bookId): JsonResponse
     {
         $reviews =  $this->livroService->findBookReviews($bookId);
 
-        // return ReviewResource::collection($reviews)->response()->setStatusCode(200);
-        return response()->json($reviews);
+        return ReviewResource::collection($reviews)->response()->setStatusCode(200);
+    }
+
+    public function getBookDetails(): JsonResponse 
+    {
+        $detalhes = $this->livroService->getBookDetails();
+
+        return LivroDetalhesResource::collection($detalhes)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse

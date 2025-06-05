@@ -23,6 +23,16 @@ class GeneroService {
         return $this->generoRepository->find($id);
     }
 
+    public function findBooksByGenre(int $generoId): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->generoRepository->findBooksByGenre($generoId);
+    }
+
+    public function findGenresAndTheirBooks(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->generoRepository->findGenresAndTheirBooks();
+    }
+
     public function update(array $data, $id): int {
         return $this->generoRepository->update($data, $id);
     }

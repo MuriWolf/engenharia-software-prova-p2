@@ -21,6 +21,16 @@ class GeneroRepository
         return Genero::find($id);
     }
 
+    public function findBooksByGenre(int $generoId): \Illuminate\Database\Eloquent\Collection
+    {
+        return Genero::find($generoId)->livros;
+    }
+
+    public function findGenresAndTheirBooks(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Genero::with('livros')->get();
+    }
+
     public function update(array $data, $id): int
     {
         $genero = Genero::findOrFail($id);

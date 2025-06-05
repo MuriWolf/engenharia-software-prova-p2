@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GeneroComLivroResource;
 use App\Http\Resources\GeneroResource;
+use App\Http\Resources\LivroResource;
 use App\Models\Genero;
 use App\Services\GeneroService;
 use Illuminate\Http\JsonResponse;
@@ -27,6 +29,20 @@ class GeneroController extends Controller
         $genero = $this->GeneroService->find($id);
 
         return new GeneroResource($genero)->response()->setStatusCode(200);
+    }
+
+    public function showBooksByGenre(int $generoId): JsonResponse
+    {
+        $livros = $this->GeneroService->findBooksByGenre($generoId);
+
+        return LivroResource::collection($livros)->response()->setStatusCode(200);
+    }
+
+    public function showGenresAndTheirBooks(): JsonResponse
+    {
+        $generosELivros = $this->GeneroService->findGenresAndTheirBooks();
+
+        return GeneroComLivroResource::collection($generosELivros)->response()->setStatusCode(200);
     }
 
     public function store(Request $request): JsonResponse

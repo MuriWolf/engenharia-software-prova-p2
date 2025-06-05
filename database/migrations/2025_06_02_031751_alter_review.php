@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::table('review', function (Blueprint $table) {
             $table->unsignedBigInteger('usuario_id')->nullable();
-            $table->foreign('usuario_id')->references('id')->on('usuario');
+            $table->foreign('usuario_id')->references('id')->on('usuario')->cascadeOnDelete();
 
             $table->unsignedBigInteger('livro_id')->nullable();
-            $table->foreign('livro_id')->references('id')->on('livro');
+            $table->foreign('livro_id')->references('id')->on('livro')->cascadeOnDelete();
         });
     }
 
